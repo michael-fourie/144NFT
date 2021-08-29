@@ -1,0 +1,11 @@
+.pixel {
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid;
+    border-color: black;
+  
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  

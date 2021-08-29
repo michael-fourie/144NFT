@@ -1,0 +1,17 @@
+#imgBorder:hover{
+    cursor: pointer;
+    border: 2px solid;
+    border-color: aqua;
+}
+
+.dialogTitle{
+    font-family: 'VT323';
+    font-size: 32px;
+    align-items: center;
+}
+
+.dialogDescription{
+    font-family: 'VT323';
+    font-size: 18px;
+    align-items: center;
+}

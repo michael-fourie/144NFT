@@ -1,0 +1,15 @@
+.title{
+    font-family: 'VT323';
+    font-size: 200px;
+    display: flex;
+    justify-content: center;
+    margin-top: -0.5%;
+}
+
+.desc{
+    font-family: 'VT323';
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    margin-top: -10%;
+}
