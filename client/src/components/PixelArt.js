@@ -1,15 +1,13 @@
-import React, { setState, useState } from 'react';
-import Button from '@material-ui/core/Button';
+import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
+import { Button } from '@material-ui/core';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import { BrowserRouter, Link, Switch, Route} from 'react-router-dom';
-import blank_img from './img/blank.png'
-import test_img from './img/test-img.png'
-import './PixelArt.css'
+import blank_img from '../img/blank.png'
+import '../style/PixelArt.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -21,25 +19,43 @@ export default function PixelArt(props) {
     const [imageBorder, setImageBorder] = useState('0px solid')
     const [open, setOpen] = useState(false);
 
-    const pixelArtId = props.id
+    const gridId = props.id
+    const modal = props.modal
+    
     const Title = ({ children }) => <div className="dialogTitle">{children}</div>;
     const Description = ({ children }) => <div className="dialogDescription">{children}</div>;
 
+    const handleDrawStateFunc = () => {
+        props.handleDrawState()
+    }
+    
+    const handleGridIdFunc = (id) => {
+        props.handleGridId(id)
+    }
+
     const handleClickOpen = () => {
-        setOpen(true);
-        console.log(pixelArtId);
+        if (!modal) { 
+            setOpen(true);
+        } else {
+            return
+        } 
+
     };
 
     const handleClose = () => {
         setOpen(false);
     };
-  
+
+    const handleClick  =() => {
+        props.gridIdHandler(gridId)
+        props.drawStateHandler()
+    }
 
     return (
             <div id="imgBorder">
                 <img
                     src={image}
-                    onClick={handleClickOpen}
+                    onClick={ handleClickOpen}
                     width="100%"
                     alt="art"
                 />
@@ -52,7 +68,7 @@ export default function PixelArt(props) {
                     aria-describedby="alert-dialog-slide-description"
                 >
                     <DialogTitle>
-                        <Title>Grid #{pixelArtId} is available!</Title>
+                        <Title>Grid #{gridId} is available!</Title>
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -62,7 +78,11 @@ export default function PixelArt(props) {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={props.action} color="primary" style={{ fontFamily: 'VT323', fontSize: '24px' }}>
+                        <Button onClick={handleClose} 
+                            color="grey" style={{ fontFamily: 'VT323', fontSize: '24px' }}>
+                            Close
+                        </Button> 
+                        <Button onClick={modal ? console.log('test') : handleClick} color="primary" style={{ fontFamily: 'VT323', fontSize: '24px' }}>
                             Draw
                         </Button> 
                     </DialogActions>
