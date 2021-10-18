@@ -13,7 +13,7 @@
     "@material-ui/icons": "^4.11.2",
     "@openzeppelin/contracts": "^4.3.2",
     "axios": "^0.21.4",
-    "node-sass": "^4.14.1",
+    "node-sass": "6.0.1",
     "react": "16.11.0",
     "react-alert": "^7.0.3",
     "react-color": "^2.19.3",
@@ -32,7 +32,8 @@
     "eject": "react-scripts eject"
   },
   "engines": {
-    "node": "16.11.1"
+    "node": "16.11.1",
+    "npm": "8.0.0"
   },
   "eslintConfig": {
     "extends": "react-app"
