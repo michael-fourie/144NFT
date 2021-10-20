@@ -57,3 +57,37 @@
     }
     
   }
+
+
+.horizontal{
+    float: left;
+}
+
+.horizontal  *{
+
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.btn {
+  margin: 10px;
+  padding: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+ /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+ }
+
+/* Demo Stuff End -> */
+.btn-2 {
+  background-image: linear-gradient(to right, #f873ff 0%, #9f0af5 100%);
+}
+/* <- Magic Stuff Start */
+
+.btn:hover {
+  background-position: right center; /* change the direction of the change here */
+}

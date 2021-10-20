@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { Button } from '@material-ui/core';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,6 +8,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import blank_img from '../img/blank.png'
 import '../style/PixelArt.css'
+import Web3 from 'web3'
+import Util144 from '../abis/Utility144NFT.json'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -15,15 +17,33 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function PixelArt(props) {
     const [image, setImage] = useState(blank_img)
-    const [isEmpty, setIsEmpty] = useState(true)
     const [imageBorder, setImageBorder] = useState('0px solid')
+    const [imgSet, setImgSet] = useState(false)
     const [open, setOpen] = useState(false);
+
+    const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/6d2cfaaa7bbf427fb1a27228b40a84ff'))
+    const util144Contract = new web3.eth.Contract(Util144.abi, '0x7224c3851Fee9014cD27a7D4DdafA2E5Dd5c54F3')
 
     const gridId = props.id
     const modal = props.modal
-    
+    let imgUrl = ''
     const Title = ({ children }) => <div className="dialogTitle">{children}</div>;
     const Description = ({ children }) => <div className="dialogDescription">{children}</div>;
+
+    useEffect(() => {
+        util144Contract.methods.getUri(gridId.toString()).call(function (err, res) {
+            if (err) {
+              console.log("An error occured", err)
+              return
+            }
+            if (res != ''){
+                setImgSet(true)
+                let hash = res.slice(7)
+                imgUrl = "https://ipfs.io/ipfs/" + hash
+                setImage(imgUrl)
+          }
+        })
+    }, [])
 
     const handleDrawStateFunc = () => {
         props.handleDrawState()
@@ -53,12 +73,21 @@ export default function PixelArt(props) {
 
     return (
             <div id="imgBorder">
+                {imgSet ?
                 <img
                     src={image}
                     onClick={ handleClickOpen}
                     width="100%"
                     alt="art"
                 />
+                :
+                <img
+                    src={image}
+                    onClick={ handleClickOpen}
+                    width="100%"
+                    alt="art"
+                />
+}
                 <Dialog
                     open={open}
                     TransitionComponent={Transition}

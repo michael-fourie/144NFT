@@ -8,8 +8,8 @@ import PixelArt from './PixelArt'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        width: '80%',
-        height: '80%',
+        width: '97%',
+        height: '97%',
     },
     paper: {
         textAlign: 'center',
@@ -344,7 +344,7 @@ export default function PixelGrid(props) {
                             <PixelArt id='93' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
                         </Grid>
                         <Grid item xs={1}>
-                            <PixelArt id='94 ' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
+                            <PixelArt id='94' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
                         </Grid>
                         <Grid item xs={1}>
                             <PixelArt id='95' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />

@@ -8,10 +8,9 @@ import { Box } from '@material-ui/core';
 import { ChromePicker } from 'react-color'
 import axios from 'axios'
 import ColorizeIcon from '@material-ui/icons/Colorize';
+import UndoIcon from '@material-ui/icons/Undo';
 import IconButton from '@material-ui/core/IconButton';
 import '../style/Editor.css';
-import { useWallet } from 'use-wallet'
-import Contract from 'web3-eth-contract'
 import Web3 from 'web3'
 
 const style = {
@@ -27,6 +26,8 @@ const style = {
 };
 
 
+let pixelArray = []
+let prevArray = []
 
 function Editor(props) {
     const componentRef = useRef()
@@ -37,19 +38,19 @@ function Editor(props) {
     const [cellColor, setCellColor] = useState('#000000')
     const [mouseDown, setMouseDown] = useState(false)
     const [menuVisible, setMenuVisible] = useState(true)
-    const [pixelArray, setPixelArray] = useState([])
+    const [undoState, setUndoState] = useState(false)
     const [colorPickerState, setColorPickerState] = useState(false)
     const [loading, setLoading] = useState(false)
     const [util144, setUtil144] = useState(null)
     const [onefourfour, setOnefourfour] = useState(null)
     const [account, setAccount] = useState('0x00')
-
-    const wallet = useWallet()
     const gridId = props.id
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    
+    
     async function loadBlockchainData() {
       const web3 = window.web3
       const accounts = await web3.eth.getAccounts()
@@ -106,10 +107,11 @@ function Editor(props) {
         counter++;
       }
     }
-
+    const tempPixelArray = []
     for (let i = 0; i < height * width; i++){
-      setPixelArray( [...pixelArray, '#ffffff'])
+      tempPixelArray.push('#FFFFFF')
     }
+    pixelArray = tempPixelArray
     loadWeb3()
     loadBlockchainData()
   }, []) 
@@ -117,17 +119,24 @@ function Editor(props) {
   // Cell color
   function handleCellColor(color) {
     setCellColor(color.hex)
-
   }
 
-  function handleCellColorOnClick(event) {
+  function setPrevArray(arr){
+    prevArray = arr
+  }
+  function setPixelArray(arr){
+    pixelArray = arr
+  }
+
+  const handleCellColorOnClick = (firstDown) => (event) => {
+    if(firstDown){
+      setPrevArray([...pixelArray])
+      setUndoState(true)
+    }
     if (!colorPickerState) {
       event.target.style.backgroundColor = cellColor;
       setMouseDown(true)
-
-      let pixelArrayCopy = [...pixelArray];
-      pixelArrayCopy[event.target.id] = cellColor;
-      setPixelArray(pixelArrayCopy)
+      pixelArray[event.target.id] = cellColor;
     } else {
       setCellColor(event.target.style.backgroundColor)
       setColorPickerState(false)
@@ -138,51 +147,45 @@ function Editor(props) {
     setMouseDown(false)
   }
 
-  // Table background color
-  function handleBackgroundColor(color) {
-    setBackground(color.hex)
-  };
-
   // Remove color
   function handleColorRemove(event){
+    setPrevArray([...pixelArray])
+    setUndoState(true)
     event.target.style.backgroundColor = '';
-   
-    let pixelArrayCopy = [...pixelArray];
-    pixelArrayCopy[event.target.id] = '#ffffff';
-    setPixelArray(pixelArrayCopy)
-    
+    pixelArray[event.target.id] = '#ffffff';
   }
 
   function colorPicker() {
     let colorPickerCurr = colorPickerState
     setColorPickerState(!colorPickerCurr)
-
   }
 
-  async function handleMint() {
-
-    let copyArray = []
-    for (let i=0; i<1024; i++){
-      if (i < pixelArray.length) {
-        if (pixelArray[i] == undefined || pixelArray[i] == 'undefined' || pixelArray[i] == null){
-          copyArray[i] = '#ffffff'
+  function undo() {
+      if (undoState){
+        const allTableCells = document.getElementsByTagName("td");
+        for(let i = 0, max = allTableCells.length; i < max; i++) {
+          let node = allTableCells[i];
+          node.style.backgroundColor = prevArray[i];
         }
-          else{
-        copyArray[i] = pixelArray[i]
-        }
-      } else {
-        copyArray[i] = '#ffffff'
-      }
+        let copy = [...prevArray]
+        setPixelArray(copy)
+        //setPrevArray([])
+        setUndoState(false)
     }
-    console.log(copyArray)
-    const article = { "postArray": copyArray };
+  }
+
+
+  async function handleMint() {
+    const article = { "postArray": pixelArray };
     axios.post('http://pixel2ipfs.xyz/post', article)
     .then(response => {
       let ipfsHash = response.data['IpfsHash']
       ipfsHash = "ipfs://" + ipfsHash
-      console.log(gridId)
+      console.log(ipfsHash)
+      console.log(account)
       util144.methods.buyGrid(account, ipfsHash, gridId).send({ from: account, value: 60000000000000000 }).on('transactionHash', (hash) => {
           setLoading(false)
+          props.drawStateHandler()
         })
       console.log('done')  
     })
@@ -202,9 +205,14 @@ function Editor(props) {
             disableAlpha='true'
           />
           <p>Double click to remove a color</p>
-          <IconButton color={ colorPickerState ? "primary" : "grey"} onClick={colorPicker}>
-            <ColorizeIcon />
-          </IconButton>
+          <div id="horizontal">
+            <IconButton color={ colorPickerState ? "primary" : "grey"} onClick={colorPicker}>
+              <ColorizeIcon />
+            </IconButton>
+            <IconButton color="primary" onClick={undo}>
+              <UndoIcon color={ undoState ? "primary" : "grey"} onClick={undo}/>
+            </IconButton>
+          </div>
         </div>
 
         <div className="Canvas" ref={componentRef}>
@@ -212,10 +220,10 @@ function Editor(props) {
           <table
             id="pixel_canvas"
             style={{ backgroundColor: background }}
-            onMouseDown={handleCellColorOnClick}
-            onMouseMove={mouseDown ? handleCellColorOnClick : null}
+            onMouseDown={handleCellColorOnClick(true)}
+            onMouseMove={mouseDown ? handleCellColorOnClick(false) : null}
             onMouseUp={handleMouseState}
-            onMouseLeave={handleMouseState}
+            onMouseLeave={mouseDown ? handleMouseState : null}
             onTouchStart={handleCellColorOnClick}
             onTouchMove={mouseDown ? handleCellColorOnClick : null}
             onTouchEnd={handleMouseState}
@@ -224,8 +232,8 @@ function Editor(props) {
         </div>
 
         <div className='buttons'>
-          <Button  variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'black', width: '250px', height: '75px', marginTop: '25%' }}>Back</Button>
-          <Button onClick={handleMint} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'black', width: '250px', height: '75px', marginTop: '25%' }}>Mint NFT</Button>   
+          <Button  className="btn btn-2" onClick={props.drawStateHandler} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Back</Button>
+          <Button className="btn btn-2" onClick={handleMint} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Mint NFT</Button>   
           <Modal
             open={open}
             onClose={handleClose}

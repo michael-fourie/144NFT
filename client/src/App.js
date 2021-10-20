@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Button from '@material-ui/core/Button'
-import AppBar from '@material-ui/core/AppBar'
 import WelcomeText from './components/WelcomeText'
 import Editor from './components/Editor'
 import PixelGrid from './components/PixelGrid'
 import { Toolbar, Typography, Box, Modal,  } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core';
 import "./App.css";
-import { useWallet, UseWalletProvider } from '../node_modules/use-wallet'
-import img from './img/logo.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,12 +37,16 @@ const modalStyle = {
 
 function App() {
   const classes = useStyles()
-  const wallet = useWallet()
   const [drawState, setDrawState] = useState(true);
   const [gridId, setGridId] = useState(null)
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false)
+
+  const [openTwo, setOpenTwo] = useState(false);
+  const handleOpenTwo = () => setOpenTwo(true);
+  const handleCloseTwo = () => setOpenTwo(false)
+
 
   function drawStateHandler() {
     setDrawState(!drawState)
@@ -58,11 +59,39 @@ function App() {
 
   return (
     <div>
-      <AppBar position="static" style={{ background: '#FFFFFF' }}>
-        <Toolbar>
-          <img src={img} alt="logo" height="25" width="25" />
-          <Typography variant="h6" className={classes.title}>144NFT</Typography>
-          <Button className = "btn btn-2" onClick={handleOpen} style={{ color: 'white', fontSize: 20, fontFamily: 'VT323'}} variant="contained" color="grey">Full Image</Button>
+
+      {drawState ?
+
+      <div className="mainPage">
+        <WelcomeText />
+        <div className="horizontal">
+        <Button className = "btn btn-2" onClick={handleOpenTwo} style={{ borderRadius: '18px', color: 'white', fontSize: 20, fontFamily: 'VT323', width: 250, height: 75, marginRight: '15%'}} variant="contained">About</Button>
+        <Modal
+            open={openTwo}
+            onClose={handleCloseTwo}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={modalStyle}>
+              <div style={{display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginBottom: '10px'}}>
+                <pre className='bio'> {`
+            144NFT is a collaborative NFT project consisting of a 12 x 12 board of 144 grids.
+            Each grid is a 32 x 32 canvas where you can create the NFT pixel art youv'e always desired.
+            You own the pixel art you create, have full rights over it, and it will always be displayed on the board.
+            Each grid costs 0.07 ETH to mint, plus gas.
+            Once all 144 grids have been drawn, the final masterpiece will be minted and auctioned off.
+            All proceeds from auction will be evenly distributed between all 144NFT contributers.
+            The masterpiece will always live on the Ethereum blockchain.
+            Become a part of the largest collaborative art project on the Blockchain.
+            `}
+          </pre>
+              </div>
+            </Box>
+         </Modal>
+          <Button className = "btn btn-2" onClick={handleOpen} style={{borderRadius: '18px', color: 'white', fontSize: 20, fontFamily: 'VT323', width: 250, height: 75}} variant="contained">Full Image</Button>
           <Modal
             open={open}
             onClose={handleClose}
@@ -78,47 +107,21 @@ function App() {
               </div>
             </Box>
          </Modal>
-         {wallet.status === 'connected' ? (
-            <Button className="btn btn-2" variant="contained"  style={{ color: 'white', fontFamily: 'VT323', fontSize: 20, marginLeft: '25px' }}>Connected</Button> 
-            ) : (
-              <Button className="btn btn-2" variant="contained"  style={{ color: 'white', fontFamily: 'VT323', fontSize: 20, marginLeft: '25px' }} onClick={() => wallet.connect()}>Connect Wallet</Button>          
-         )}
-        </Toolbar>
-      </AppBar>
-
-      {drawState ?
-
-      <div className="mainPage">
-        <WelcomeText />
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          margin: 25,
-
-        }}>
+        </div>
+        <div className="grid">
           <PixelGrid gridIdHandler={gridIdHandler} gridId = {gridId} drawState={drawState} drawStateHandler={drawStateHandler} modal={false} />
         </div>
       </div>
       :
       <div className="drawPage">
-        <Editor wallet = {wallet} id={gridId} drawState={drawState} drawStateHandler={drawStateHandler}/>
+        <Editor id={gridId} drawState={drawState} drawStateHandler={drawStateHandler}/>
       </div>
       }
-      <p>made by michael</p>
+      <p style={{color: '#ffd9fc', marginLeft: '5px'}}>made by michael</p>
     </div>
   )
 }
 
-// Wrap everything in <UseWalletProvider />
 export default () => (
-  <UseWalletProvider
-  chainId={1337}
-  connectors={{
-    // This is how connectors get configured
-    portis: { dAppId: 'my-dapp-id-123-xyz' },
-  }}
->
   <App />
-</UseWalletProvider>
 )
