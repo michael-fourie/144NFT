@@ -7,36 +7,10 @@ import { Toolbar, Typography, Box, Modal,  } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core';
 import "./App.css";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    fontFamily: 'VT323',
-    fontSize: 38,
-    color: '#9f0af5'
-  },
-}));
 
-const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 550,
-  height: 600,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+
 
 function App() {
-  const classes = useStyles()
   const [drawState, setDrawState] = useState(true);
   const [gridId, setGridId] = useState(null)
   const [open, setOpen] = useState(false);
@@ -65,14 +39,14 @@ function App() {
       <div className="mainPage">
         <WelcomeText />
         <div className="horizontal">
-        <Button className = "btn btn-2" onClick={handleOpenTwo} style={{ borderRadius: '18px', color: 'white', fontSize: 20, fontFamily: 'VT323', width: 250, height: 75, marginRight: '15%'}} variant="contained">About</Button>
+        <Button className = "btn btn-2" onClick={handleOpenTwo} style={{ borderRadius: '18px', color: 'white', fontFamily: 'VT323', marginRight: '15%'}} variant="contained">About</Button>
         <Modal
             open={openTwo}
             onClose={handleCloseTwo}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={modalStyle}>
+            <Box className="modalStyle">
               <div style={{display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -89,20 +63,21 @@ function App() {
             `}
           </pre>
               </div>
+              <Button  className="btn btn-2" onClick={handleCloseTwo} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '100px', height: '40px', marginLeft: '40%' }}>Back</Button>
             </Box>
          </Modal>
-          <Button className = "btn btn-2" onClick={handleOpen} style={{borderRadius: '18px', color: 'white', fontSize: 20, fontFamily: 'VT323', width: 250, height: 75}} variant="contained">Full Image</Button>
+          <Button className = "btn btn-2" onClick={handleOpen} style={{borderRadius: '18px', color: 'white', fontFamily: 'VT323'}} variant="contained">Full Image</Button>
           <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={modalStyle}>
+            <Box className="modalStyleImg">
               <div style={{display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          marginBottom: '10px'}}>
+                         }}>
                 <PixelGrid gridIdHandler={gridIdHandler} gridId = {gridId} drawState={drawState} drawStateHandler={drawStateHandler} modal={true} />
               </div>
             </Box>

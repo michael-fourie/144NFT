@@ -177,7 +177,7 @@ function Editor(props) {
 
   async function handleMint() {
     const article = { "postArray": pixelArray };
-    axios.post('http://pixel2ipfs.xyz/post', article)
+    axios.post('https://pixel2ipfs.xyz/post', article)
     .then(response => {
       let ipfsHash = response.data['IpfsHash']
       ipfsHash = "ipfs://" + ipfsHash
