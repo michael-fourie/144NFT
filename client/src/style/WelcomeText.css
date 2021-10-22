@@ -13,9 +13,8 @@
         display: flex;
         justify-content: center;
         margin-top: -0.5%;
-        background: -webkit-linear-gradient(#f873ff, #9f0af5);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #9f0af5;
+        
     }
 
     .desc{
@@ -24,9 +23,8 @@
         display: flex;
         justify-content: center;
         margin-top: -200px;
-        background: -webkit-linear-gradient(#f873ff, #9f0af5);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #9f0af5;
+
     }
 
 
