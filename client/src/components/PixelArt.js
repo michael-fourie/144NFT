@@ -9,6 +9,7 @@ import Slide from '@material-ui/core/Slide';
 import blank_img from '../img/blank.png'
 import '../style/PixelArt.css'
 import Web3 from 'web3'
+import {isMobile} from 'react-device-detect';
 import Util144 from '../abis/Utility144NFT.json'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -18,11 +19,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function PixelArt(props) {
     const [image, setImage] = useState(blank_img)
     const [imageBorder, setImageBorder] = useState('0px solid')
+    const [artist, setArtist] = useState('0x0')
     const [imgSet, setImgSet] = useState(false)
     const [open, setOpen] = useState(false);
 
     const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/6d2cfaaa7bbf427fb1a27228b40a84ff'))
-    const util144Contract = new web3.eth.Contract(Util144.abi, '0x7224c3851Fee9014cD27a7D4DdafA2E5Dd5c54F3')
+    const util144Contract = new web3.eth.Contract(Util144.abi, '0x2Bc36f00DcfAC399889D7c06dF7731F5bd5F1358')
 
     const gridId = props.id
     const modal = props.modal
@@ -41,6 +43,16 @@ export default function PixelArt(props) {
                 let hash = res.slice(7)
                 imgUrl = "https://ipfs.io/ipfs/" + hash
                 setImage(imgUrl)
+          }
+        })
+
+        util144Contract.methods.getAddress(gridId.toString()).call(function (err, res) {
+            if (err) {
+              console.log("An error occured", err)
+              return
+            }
+            if (res != ''){
+                setArtist(res)
           }
         })
     }, [])
@@ -87,7 +99,64 @@ export default function PixelArt(props) {
                     width="100%"
                     alt="art"
                 />
-}
+                }
+                { isMobile ? 
+                 <Dialog
+                 open={open}
+                 TransitionComponent={Transition}
+                 keepMounted
+                 onClose={handleClose}
+                 aria-labelledby="alert-dialog-slide-title"
+                 aria-describedby="alert-dialog-slide-description"
+             >
+                 
+                 <DialogTitle>
+                     <Title>Mobile User Detected</Title>
+                 </DialogTitle>
+                 <DialogContent>
+                     <DialogContentText>
+                         <Description>
+                             Please use a computer to draw and mint your NFT.
+                         </Description>
+                     </DialogContentText>
+                 </DialogContent>
+                 <DialogActions>
+                     <Button onClick={handleClose} 
+                         color="grey" style={{ fontFamily: 'VT323', fontSize: '24px' }}>
+                         Close
+                     </Button> 
+                 </DialogActions>
+             </Dialog>
+             : [(imgSet ? <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                
+                <DialogTitle>
+                    <Title>Grid #{gridId}</Title>
+                </DialogTitle>
+                <DialogContent>
+                    <img
+                        src={image}
+                        onClick={ handleClickOpen}
+                        width="100%"
+                        alt="art"
+                    />
+                    <p>By: {artist}</p>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} 
+                        color="grey" style={{ fontFamily: 'VT323', fontSize: '24px' }}>
+                        Close
+                    </Button> 
+                </DialogActions>
+            </Dialog> 
+            :
+            
                 <Dialog
                     open={open}
                     TransitionComponent={Transition}
@@ -96,6 +165,7 @@ export default function PixelArt(props) {
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
+                    
                     <DialogTitle>
                         <Title>Grid #{gridId} is available!</Title>
                     </DialogTitle>
@@ -116,6 +186,7 @@ export default function PixelArt(props) {
                         </Button> 
                     </DialogActions>
                 </Dialog>
+             )]}
             </div>
     )
 }

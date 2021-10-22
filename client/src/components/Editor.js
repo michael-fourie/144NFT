@@ -114,6 +114,7 @@ function Editor(props) {
     pixelArray = tempPixelArray
     loadWeb3()
     loadBlockchainData()
+    window.scrollTo(0, 0)
   }, []) 
 
   // Cell color
@@ -169,7 +170,6 @@ function Editor(props) {
         }
         let copy = [...prevArray]
         setPixelArray(copy)
-        //setPrevArray([])
         setUndoState(false)
     }
   }

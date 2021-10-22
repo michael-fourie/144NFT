@@ -7,7 +7,9 @@ contract Utility144NFT is Ownable{
 
     ONEFOURFOURNFT public onefourfour;
 
-    mapping(uint => string) public gridToURI;    
+    mapping(uint => string) public gridToURI;  
+    mapping(uint => address) public gridIdToAddress;
+
     event BuyGrid(address sender);
     event WithdrawFunds(address owner, uint balance);
 
@@ -23,6 +25,7 @@ contract Utility144NFT is Ownable{
         bool r = onefourfour.mint144NFT(_sender, _ipfsHash, _gridId);
         if (r) {
             gridToURI[_gridId] = _ipfsHash; 
+            gridIdToAddress[_gridId] = _sender;
          }
         emit BuyGrid(_sender);
         return r;
@@ -30,6 +33,10 @@ contract Utility144NFT is Ownable{
 
     function getUri(uint _gridId) public view returns (string memory){
         return gridToURI[_gridId];
+    }
+
+    function getAddress(uint _gridId) public view returns (address){
+        return gridIdToAddress[_gridId];
     }
 
     function withdrawFunds() public returns(bool){

@@ -17,6 +17,7 @@
     "react": "16.11.0",
     "react-alert": "^7.0.3",
     "react-color": "^2.19.3",
+    "react-device-detect": "^2.0.1",
     "react-dom": "^16.14.0",
     "react-popup-alert": "^2.0.0",
     "react-router-dom": "^5.3.0",
