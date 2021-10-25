@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         width: '97%',
-        height: '97%'
+        height: '97%',
+
     },
     paper: {
         textAlign: 'center',
@@ -240,7 +241,7 @@ export default function PixelGrid(props) {
                             <PixelArt id='61' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler} modal={props.modal} />
                         </Grid>
                         <Grid item xs={1}>
-                            <PixelArt id='62'action={props.action } modal={props.modal} />
+                            <PixelArt id='62' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler} modal={props.modal} />
                         </Grid>
                         <Grid item xs={1}>
                             <PixelArt id='63' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
@@ -434,7 +435,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={{marginBottom: '-3.1px'}}>
+                <Grid container item xs={12} spacing={0} style={{marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='121' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />

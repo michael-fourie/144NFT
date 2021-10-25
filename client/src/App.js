@@ -49,21 +49,20 @@ function App() {
             <Box className="modalStyle">
               <div style={{display: 'flex',
                           alignItems: 'center',
-                          justifyContent: 'center',
-                          marginBottom: '10px'}}>
+                          justifyContent: 'center'
+                          }}>
                 <pre className='bio'> {`
-            144NFT is a collaborative NFT project consisting of a 12 x 12 board of 144 grids.
-            Each grid is a 32 x 32 canvas where you can create the NFT pixel art youv'e always desired.
-            You own the pixel art you create, have full rights over it, and it will always be displayed on the board.
-            Each grid costs 0.06 ETH to mint, plus gas.
-            Once all 144 grids have been drawn, the final masterpiece will be minted and auctioned off.
-            All proceeds from auction will be evenly distributed between all 144NFT contributers.
-            The masterpiece will always live on the Ethereum blockchain.
-            Become a part of the largest collaborative art project on the Blockchain.
+            A Collaborative NFT project on Ethereum.
+            There are 144 indiviudal grids that come together to make one masterpiece.
+            Each grid is a 32 x 32 pixel art canvas.
+            Each grid costs 0.06 ETH to mint.
+            Once all 144 grids have been minted, the final masterpiece will be minted and auctioned off.
+            All proceeds from auction will be evenly distributed between all 144NFT holders.
+            Become a part of a unique NFT masterpiece on the Blockchain.
             `}
           </pre>
               </div>
-              <Button  className="btn btn-2" onClick={handleCloseTwo} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '100px', height: '40px', marginLeft: '40%' }}>Back</Button>
+              <Button  className="btn btn-2" onClick={handleCloseTwo} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '100px', height: '40px', marginLeft: '40%', marginBotton: '1%' }}>Back</Button>
             </Box>
          </Modal>
           <Button className = "btn btn-2" onClick={handleOpen} style={{borderRadius: '18px', fontSize: '22px', color: 'white', fontFamily: 'VT323'}} variant="contained">Full Image</Button>

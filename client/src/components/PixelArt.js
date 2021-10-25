@@ -85,23 +85,50 @@ export default function PixelArt(props) {
 
     return (
             <div id="imgBorder">
-                {imgSet ?
+         
                 <img
                     src={image}
                     onClick={ handleClickOpen}
                     width="100%"
                     alt="art"
                 />
-                :
-                <img
-                    src={image}
-                    onClick={ handleClickOpen}
-                    width="100%"
-                    alt="art"
-                />
-                }
-                { isMobile ? 
-                 <Dialog
+                
+                { imgSet ? 
+                <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                
+                <DialogTitle>
+                    <Title>Grid #{gridId}</Title>
+                </DialogTitle>
+                <DialogContent>
+                    <img
+                        src={image}
+                        onClick={ handleClickOpen}
+                        width="85%"
+                        alt="art"
+                        style={{
+                            display: 'block',
+                            marginLeft: 'auto',
+                            marginRight: 'auto'}}
+
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <p style={{textAlign: 'center', fontSize: '22px',}}>By: {artist.slice(0, 14)}...</p>
+                    <Button onClick={handleClose} 
+                        color="grey" style={{ fontFamily: 'VT323', fontSize: '20px' }}>
+                        Close
+                    </Button> 
+                </DialogActions>
+            </Dialog> 
+            : [(isMobile ? 
+                <Dialog
                  open={open}
                  TransitionComponent={Transition}
                  keepMounted
@@ -127,34 +154,6 @@ export default function PixelArt(props) {
                      </Button> 
                  </DialogActions>
              </Dialog>
-             : [(imgSet ? <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-            >
-                
-                <DialogTitle>
-                    <Title>Grid #{gridId}</Title>
-                </DialogTitle>
-                <DialogContent>
-                    <img
-                        src={image}
-                        onClick={ handleClickOpen}
-                        width="100%"
-                        alt="art"
-                    />
-                    <p>By: {artist}</p>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} 
-                        color="grey" style={{ fontFamily: 'VT323', fontSize: '24px' }}>
-                        Close
-                    </Button> 
-                </DialogActions>
-            </Dialog> 
             :
             
                 <Dialog
@@ -187,6 +186,8 @@ export default function PixelArt(props) {
                     </DialogActions>
                 </Dialog>
              )]}
-            </div>
+             
+                
+            </div> 
     )
 }

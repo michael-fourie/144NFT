@@ -1,10 +1,6 @@
-import React, { useRef, useState, useEffect, withStyles } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Util144 from '../abis/Utility144NFT.json'
-import ONEFOURFOUR from '../abis/ONEFOURFOURNFT.json'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import Modal from '@material-ui/core/Modal'
-import { Box } from '@material-ui/core';
 import { ChromePicker } from 'react-color'
 import axios from 'axios'
 import ColorizeIcon from '@material-ui/icons/Colorize';
@@ -13,17 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import '../style/Editor.css';
 import Web3 from 'web3'
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 
 let pixelArray = []
@@ -32,24 +17,18 @@ let prevArray = []
 function Editor(props) {
     const componentRef = useRef()
     //state
-    const [height, setHeight] = useState(32)
-    const [width, setWidth] = useState(32)
+    const height = 32
+    const width = 32
     const [background, setBackground] = useState('#FFFFFF')
     const [cellColor, setCellColor] = useState('#000000')
     const [mouseDown, setMouseDown] = useState(false)
-    const [menuVisible, setMenuVisible] = useState(true)
     const [undoState, setUndoState] = useState(false)
     const [colorPickerState, setColorPickerState] = useState(false)
     const [loading, setLoading] = useState(false)
     const [util144, setUtil144] = useState(null)
-    const [onefourfour, setOnefourfour] = useState(null)
     const [account, setAccount] = useState('0x00')
-    const gridId = props.id
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
     
+    const gridId = props.id  
     
     async function loadBlockchainData() {
       const web3 = window.web3
@@ -65,15 +44,6 @@ function Editor(props) {
        
       } else {
         window.alert('util144 contract not deployed to detected network.')
-      }
-      // load ONEFOURFOUR
-      const onefourfourData = ONEFOURFOUR.networks[networkId]
-      if(onefourfourData) {
-        const onefourfourContract = new web3.eth.Contract(ONEFOURFOUR.abi, onefourfourData.address)
-        setOnefourfour(onefourfourContract)
-       
-      } else {
-        window.alert('ONEFOURFOUR contract not deployed to detected network.')
       }
     }
 
@@ -103,6 +73,7 @@ function Editor(props) {
       for (let y = 0; y < width; y++) {
         let cell = document.createElement("td");
         cell.setAttribute("id", counter);
+        cell.setAttribute("draggable", false)
         row.appendChild(cell);
         counter++;
       }
@@ -129,14 +100,17 @@ function Editor(props) {
     pixelArray = arr
   }
 
+
   const handleCellColorOnClick = (firstDown) => (event) => {
+    event.preventDefault()
+    console.log(event.target.id)
+    setMouseDown(true)
     if(firstDown){
       setPrevArray([...pixelArray])
       setUndoState(true)
     }
     if (!colorPickerState) {
       event.target.style.backgroundColor = cellColor;
-      setMouseDown(true)
       pixelArray[event.target.id] = cellColor;
     } else {
       setCellColor(event.target.style.backgroundColor)
@@ -148,13 +122,6 @@ function Editor(props) {
     setMouseDown(false)
   }
 
-  // Remove color
-  function handleColorRemove(event){
-    setPrevArray([...pixelArray])
-    setUndoState(true)
-    event.target.style.backgroundColor = '';
-    pixelArray[event.target.id] = '#ffffff';
-  }
 
   function colorPicker() {
     let colorPickerCurr = colorPickerState
@@ -176,6 +143,10 @@ function Editor(props) {
 
 
   async function handleMint() {
+    if (account === undefined) {
+      loadWeb3()
+      loadBlockchainData()
+    }
     const article = { "postArray": pixelArray };
     axios.post('https://pixel2ipfs.xyz/post', article)
     .then(response => {
@@ -219,36 +190,21 @@ function Editor(props) {
     
           <table
             id="pixel_canvas"
-            style={{ backgroundColor: background }}
+            draggable="false"
+            style={{ backgroundColor: background}}
+            onDragStart={() => false}
             onMouseDown={handleCellColorOnClick(true)}
             onMouseMove={mouseDown ? handleCellColorOnClick(false) : null}
-            onMouseUp={handleMouseState}
+            onMouseUp={mouseDown ? handleMouseState : null}
             onMouseLeave={mouseDown ? handleMouseState : null}
-            onTouchStart={handleCellColorOnClick}
-            onTouchMove={mouseDown ? handleCellColorOnClick : null}
-            onTouchEnd={handleMouseState}
-            onDoubleClick={handleColorRemove}>
+            >
           </table>
         </div>
 
         <div className='buttons'>
           <Button  className="btn btn-2" onClick={props.drawStateHandler} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Back</Button>
-          <Button className="btn btn-2" onClick={handleMint} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Mint NFT</Button>   
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Wallet not connected.
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Please connect your MetaMask wallet using the 'Connect Wallet' button.
-              </Typography>
-            </Box> 
-          </Modal>    
+          <Button className="btn btn-2" onClick={handleMint} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Mint NFT</Button>     
+          <p style={{fontSize: '18px'}}>0.06 ETH</p>
         </div>
       </div>
     );
