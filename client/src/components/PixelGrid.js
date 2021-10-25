@@ -37,7 +37,7 @@ export default function PixelGrid(props) {
     return (
         <div className={classes.root} >
             <Grid container spacing={0}>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='1' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={gridIdHandler} modal={props.modal} />
@@ -77,7 +77,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='13' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler} modal={props.modal} />
@@ -117,7 +117,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='25' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler} modal={props.modal} />
@@ -157,7 +157,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='37' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler} modal={props.modal} />
@@ -197,7 +197,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='49' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler} modal={props.modal} />
@@ -237,7 +237,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='61' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler} modal={props.modal} />
@@ -277,7 +277,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='73' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
@@ -317,7 +317,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='85' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
@@ -357,7 +357,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='97' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
@@ -397,7 +397,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='109' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
@@ -437,7 +437,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='121' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
@@ -477,7 +477,7 @@ export default function PixelGrid(props) {
                         </Grid>
                     </React.Fragment>
                 </Grid>
-                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-3.5px'}: {marginBottom: '-3px'}}>
+                <Grid container item xs={12} spacing={0} style={isMobile ? {marginBottom: '-4px'}: {marginBottom: '-3px'}}>
                     <React.Fragment>
                         <Grid item xs={1}>
                             <PixelArt id='133' drawState={props.drawState} drawStateHandler={drawStateHandler} gridIdHandler={props.gridIdHandler}modal={props.modal} />
