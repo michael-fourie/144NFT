@@ -7,9 +7,6 @@ import { Toolbar, Typography, Box, Modal,  } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core';
 import "./App.css";
 
-
-
-
 function App() {
   const [drawState, setDrawState] = useState(true);
   const [gridId, setGridId] = useState(null)
@@ -55,7 +52,7 @@ function App() {
             A Collaborative NFT project on Ethereum.
             There are 144 indiviudal grids that come together to make one masterpiece.
             Each grid is a 32 x 32 pixel art canvas.
-            Each grid costs 0.06 ETH to mint.
+            Each grid costs 0.0725 ETH to mint.
             Once all 144 grids have been minted, the final masterpiece will be minted and auctioned off.
             All proceeds from auction will be evenly distributed between all 144NFT holders.
             Become a part of a unique NFT masterpiece on the Blockchain.

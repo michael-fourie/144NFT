@@ -24,7 +24,7 @@ export default function PixelArt(props) {
     const [open, setOpen] = useState(false);
 
     const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/6d2cfaaa7bbf427fb1a27228b40a84ff'))
-    const util144Contract = new web3.eth.Contract(Util144.abi, '0x2Bc36f00DcfAC399889D7c06dF7731F5bd5F1358')
+    const util144Contract = new web3.eth.Contract(Util144.abi, '0x30b286c16419A87193aB4E4Fcf3C2a0d0c93502d')
 
     const gridId = props.id
     const modal = props.modal

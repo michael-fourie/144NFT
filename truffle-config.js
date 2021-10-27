@@ -23,7 +23,7 @@
 // };
 
 var HDWalletProvider = require("./client/node_modules/truffle-hdwallet-provider");
-const MNEMONIC = 'f52475b7f816d41450b4a80b6cfaf6a2429423367f0c3c9e5e31e30988d90f5d';
+const MNEMONIC = '54486e143020cd21fad781ed7df6766d92bd94c967e0c345620546711faec00a';
 
 module.exports = {
   networks: {

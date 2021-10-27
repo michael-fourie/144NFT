@@ -23,8 +23,4 @@ contract ONEFOURFOURNFT is ERC721URIStorage {
         _count = _count.add(1);
         return true;
     }
-
-    function numMinted() public view returns (uint){
-        return _count;
-    }
 }

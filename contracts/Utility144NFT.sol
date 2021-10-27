@@ -21,7 +21,7 @@ contract Utility144NFT is Ownable{
     }
 
     function buyGrid(address _sender, string memory _ipfsHash, uint _gridId) public payable returns (bool) {
-        require(msg.value == 60000000000000000);
+        require(msg.value == 72500000000000000);
         bool r = onefourfour.mint144NFT(_sender, _ipfsHash, _gridId);
         if (r) {
             gridToURI[_gridId] = _ipfsHash; 
