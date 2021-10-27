@@ -154,7 +154,7 @@ function Editor(props) {
       ipfsHash = "ipfs://" + ipfsHash
       console.log(ipfsHash)
       console.log(account)
-      util144.methods.buyGrid(account, ipfsHash, gridId).send({ from: account, value: 60000000000000000 }).on('transactionHash', (hash) => {
+      util144.methods.buyGrid(account, ipfsHash, gridId).send({ from: account, value: 72500000000000000 }).on('transactionHash', (hash) => {
           setLoading(false)
           props.drawStateHandler()
         })
@@ -204,7 +204,7 @@ function Editor(props) {
         <div className='buttons'>
           <Button  className="btn btn-2" onClick={props.drawStateHandler} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Back</Button>
           <Button className="btn btn-2" onClick={handleMint} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Mint NFT</Button>     
-          <p style={{fontSize: '18px'}}>0.06 ETH</p>
+          <p style={{fontSize: '18px'}}>0.0725 ETH</p>
         </div>
       </div>
     );
