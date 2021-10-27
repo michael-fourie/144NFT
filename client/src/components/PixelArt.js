@@ -104,7 +104,7 @@ export default function PixelArt(props) {
             >
                 
                 <DialogTitle>
-                    <Title>Grid #{gridId}</Title>
+                    <Title>Grid #{gridId} by {artist.slice(0, 5)}</Title>
                 </DialogTitle>
                 <DialogContent>
                     <img
@@ -120,7 +120,6 @@ export default function PixelArt(props) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <p style={{textAlign: 'center', fontSize: '22px',}}>By: {artist.slice(0, 14)}...</p>
                     <Button onClick={handleClose} 
                         color="grey" style={{ fontFamily: 'VT323', fontSize: '20px' }}>
                         Close
