@@ -75,7 +75,7 @@
 .bio {
   font-family: 'VT323';
     font-size: 26px;
-    background: -webkit-linear-gradient(#f873ff, #9f0af5);
+    background: -webkit-linear-gradient(#f760ff, #7c04c2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     white-space: pre-line;
@@ -92,7 +92,7 @@
   padding-left: 3%;
   padding-right: 3%;
   padding-bottom: 1%;
-  background-color: #fff;
+  background-color:#ffffee;
   border: 2px solid #000;
   box-shadow: 24;
 }

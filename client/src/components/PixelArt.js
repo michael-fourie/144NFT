@@ -104,7 +104,7 @@ export default function PixelArt(props) {
             >
                 
                 <DialogTitle>
-                    <Title>Grid #{gridId} by {artist.slice(0, 5)}</Title>
+                    <Title>Grid #{gridId} by {artist.slice(0, 7)}</Title>
                 </DialogTitle>
                 <DialogContent>
                     <img

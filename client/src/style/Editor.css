@@ -10,6 +10,7 @@
     max-width: 350px;
     padding-left: 5px;
     padding-bottom: 20px;
+    margin-bottom: 1%;
     font-size: calc(10px + 1vmin);
     justify-content: center;
     padding-top: 15%;
@@ -62,6 +63,7 @@
 .btn {
   margin: 10px;
   padding: 30px;
+  margin-left: 1%;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -74,6 +76,7 @@
 
 /* Demo Stuff End -> */
 .btn-2 {
+  margin-left: 1%;
   background-image: linear-gradient(to right, #f873ff 0%, #9f0af5 100%);
 }
 /* <- Magic Stuff Start */

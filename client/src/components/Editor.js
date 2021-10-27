@@ -175,7 +175,6 @@ function Editor(props) {
             color={cellColor}
             disableAlpha='true'
           />
-          <p>Double click to remove a color</p>
           <div id="horizontal">
             <IconButton color={ colorPickerState ? "primary" : "grey"} onClick={colorPicker}>
               <ColorizeIcon />
@@ -203,7 +202,7 @@ function Editor(props) {
 
         <div className='buttons'>
           <Button  className="btn btn-2" onClick={props.drawStateHandler} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Back</Button>
-          <Button className="btn btn-2" onClick={handleMint} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%' }}>Mint NFT</Button>     
+          <Button className="btn btn-2" onClick={handleMint} variant="contained" color='#f9f9f9' style={{ fontFamily: 'VT323', fontSize: 24, color: 'white', width: '250px', height: '75px', marginTop: '25%', marginRight: '1%' }}>Mint NFT</Button>     
           <p style={{fontSize: '18px'}}>0.0725 ETH</p>
         </div>
       </div>
